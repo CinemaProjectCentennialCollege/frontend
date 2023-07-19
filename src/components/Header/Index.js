@@ -2,14 +2,8 @@ import React from 'react';
 import {
   Box,
   Flex,
-  Avatar,
-  Link,
+  Text,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
@@ -55,7 +49,7 @@ export default function Header() {
     return (
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                <Box>Cinerama</Box>
+                <Text fontSize={"2xl"} fontWeight={"bold"} fontStyle={"italic"}>CINERAMA</Text>
 
 				<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
 					<DesktopNav navItems={NAV_ITEMS} />
