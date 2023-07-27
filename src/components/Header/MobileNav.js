@@ -13,10 +13,12 @@ import {
 import {
 ChevronDownIcon,
 } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function MobileNav(props) {
     const NAV_ITEMS = props.navItems
+
     const MobileNavItem = ({ label, children, href }) => {
         const { isOpen, onToggle } = useDisclosure();
       
@@ -24,12 +26,13 @@ export default function MobileNav(props) {
             <Stack spacing={4} onClick={children && onToggle}>
                 <Flex
                     py={2}
-                    as={Link}
-                    href={href ?? '#'}
+                    as={children ? "" : RouterLink}
+                    to={href ?? '#'}
                     justify={'space-between'}
                     align={'center'}
                     _hover={{
-                    textDecoration: 'none',
+                        textDecoration: 'none',
+                        cursor: 'pointer'
                     }}>
                     <Text
                         fontWeight={600}
@@ -38,13 +41,13 @@ export default function MobileNav(props) {
                         {label}
                     </Text>
                     {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={'all .25s ease-in-out'}
-                        transform={isOpen ? 'rotate(180deg)' : ''}
-                        w={6}
-                        h={6}
-                    />
+                        <Icon
+                            as={ChevronDownIcon}
+                            transition={'all .25s ease-in-out'}
+                            transform={isOpen ? 'rotate(180deg)' : ''}
+                            w={6}
+                            h={6}
+                        />
                     )}
                 </Flex>
             
@@ -58,7 +61,7 @@ export default function MobileNav(props) {
                     align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
+                            <Link as={RouterLink} key={child.label} py={2} to={child.href}>
                                 {child.label}
                             </Link>
                         ))}
@@ -71,7 +74,7 @@ export default function MobileNav(props) {
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
-            p={4}
+            p={4} mb={4}
             display={{ md: 'none' }}
         >
             {NAV_ITEMS.map((navItem) => (

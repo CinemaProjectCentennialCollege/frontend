@@ -14,6 +14,7 @@ import {
 import {
     ChevronRightIcon,
 } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 
 export default function DesktopNav(props) {
@@ -26,18 +27,19 @@ export default function DesktopNav(props) {
     const SubNav = ({ label, href, subLabel }) => {
         return (
             <Link
-                href={href}
+                as={RouterLink}
+                to={href}
                 role={'group'}
                 display={'block'}
                 p={2}
                 rounded={'md'}
-                _hover={{ bg: useColorModeValue('pink.50', 'gray.900')}}
+                _hover={{ bg: useColorModeValue('gray.100', 'gray.900')}}
             >
                 <Stack direction={'row'} align={'center'}>
                     <Box>
                         <Text
                             transition={'all .3s ease'}
-                            _groupHover={{ color: 'pink.400' }}
+                            _groupHover={{ color: 'gray.400' }}
                             fontWeight={500}>
                             {label}
                         </Text>
@@ -51,7 +53,7 @@ export default function DesktopNav(props) {
                         justify={'flex-end'}
                         align={'center'}
                         flex={1}>
-                        <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+                        <Icon color={'gray.400'} w={5} h={5} as={ChevronRightIcon} />
                     </Flex>
                 </Stack>
             </Link>
@@ -62,38 +64,40 @@ export default function DesktopNav(props) {
         <Stack direction={'row'} spacing={4}>
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
-                <Popover trigger={'hover'} placement={'bottom-start'}>
-                    <PopoverTrigger>
-                    <Link
-                        p={2}
-                        href={navItem.href ?? '#'}
-                        fontSize={'sm'}
-                        fontWeight={500}
-                        color={linkColor}
-                        _hover={{
-                        textDecoration: 'none',
-                        color: linkHoverColor,
-                        }}>
-                        {navItem.label}
-                    </Link>
-                    </PopoverTrigger>
-        
-                    {navItem.children && (
-                    <PopoverContent
-                        border={0}
-                        boxShadow={'xl'}
-                        bg={popoverContentBgColor}
-                        p={4}
-                        rounded={'xl'}
-                        minW={'sm'}>
-                        <Stack>
-                        {navItem.children.map((child) => (
-                            <SubNav key={child.label} {...child} />
-                        ))}
-                        </Stack>
-                    </PopoverContent>
-                    )}
-                </Popover>
+                    <Popover trigger={'hover'} placement={'bottom-start'}>
+                        <PopoverTrigger>
+                            <Link
+                                to={navItem.href ?? '#'}
+                                as={RouterLink}
+                                p={2}
+                                fontSize={'sm'}
+                                fontWeight={500}
+                                color={linkColor}
+                                _hover={{
+                                    textDecoration: 'none',
+                                    color: linkHoverColor,
+                                }}
+                            >
+                                {navItem.label}
+                            </Link>
+                        </PopoverTrigger>
+            
+                        {navItem.children && (
+                        <PopoverContent
+                            border={0}
+                            boxShadow={'xl'}
+                            bg={popoverContentBgColor}
+                            p={4}
+                            rounded={'xl'}
+                            minW={'sm'}>
+                            <Stack>
+                            {navItem.children.map((child) => (
+                                <SubNav key={child.label} {...child} />
+                            ))}
+                            </Stack>
+                        </PopoverContent>
+                        )}
+                    </Popover>
                 </Box>
             ))}
         </Stack>

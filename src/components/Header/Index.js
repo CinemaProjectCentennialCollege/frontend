@@ -9,16 +9,19 @@ import {
   Stack,
   useColorMode,
   Collapse,
+  IconButton,
+//   Link,
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
-
+import { Link } from 'react-router-dom';
 
 export default function Header() {
 	const { colorMode, toggleColorMode } = useColorMode();
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	// const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onToggle } = useDisclosure();
 
 	const NAV_ITEMS = [
 		{
@@ -27,29 +30,43 @@ export default function Header() {
         },
         {
             label: "What's on",
+            href: null,
             children: [
                 {
-                    label: 'New In',
+                    label: 'All Movies',
                     subLabel: 'New and fast rising fan base',
-                    href: '/new-in',
+                    href: '/all-movies',
                 },
                 {
-                    label: 'Popular',
+                    label: 'Popular Movies',
                     subLabel: 'Trending and poupular among viewers',
-                    href: '/popular',
+                    href: '/popular-movies',
                 },
             ],
         },
         {
-            label: 'About',
-            href: '/about',
+            label: 'About Us',
+            href: '/about-us',
         },
     ];
 
     return (
         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-            <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-                <Text fontSize={"2xl"} fontWeight={"bold"} fontStyle={"italic"}>CINERAMA</Text>
+            <Flex pos={"relative"} h={16} alignItems={'center'} justifyContent={'space-between'}>
+                <Flex display={{ base: 'flex', md: 'none' }}>
+                    <IconButton
+                        onClick={onToggle}
+                        icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} />}
+                        variant={"ghost"}
+                        aria-label={"Toggle Navigation Menu"}
+                    />
+                </Flex>
+
+                <Link to='/'>
+                    <Text fontSize={"2xl"} fontWeight={"bold"} fontStyle={"italic"}>
+                        CINERAMA
+                    </Text>
+                </Link>                
 
 				<Flex display={{ base: 'none', md: 'flex' }} ml={10}>
 					<DesktopNav navItems={NAV_ITEMS} />
@@ -57,52 +74,16 @@ export default function Header() {
 
                 <Flex alignItems={'center'}>
                     <Stack direction={'row'} spacing={7}>
-
-
                         <Button onClick={toggleColorMode}>
                             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                         </Button>
-
-                        
-                        
-
-
                     </Stack>
                 </Flex>
-
-				<Collapse in={isOpen} animateOpacity>
-					<MobileNav navItems={NAV_ITEMS} />
-				</Collapse>
             </Flex>
+            <Collapse in={isOpen} animateOpacity>
+                <MobileNav navItems={NAV_ITEMS} />
+            </Collapse>
         </Box>
     )
 }
 
-
-
-// export default function Header() {
-//   const { colorMode, toggleColorMode } = useColorMode();
-//   const { isOpen, onOpen, onClose } = useDisclosure();
-
-
-//     return (
-//         <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-//             <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-//                 <Box>Cinerama</Box>
-
-//                 <Flex alignItems={'center'}>
-//                     <Stack direction={'row'} spacing={7}>
-//                         <Button onClick={toggleColorMode}>
-//                             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-//                         </Button>
-
-                        
-                        
-
-
-//                     </Stack>
-//                 </Flex>
-//             </Flex>
-//         </Box>
-//     )
-// }
