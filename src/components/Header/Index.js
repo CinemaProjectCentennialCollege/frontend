@@ -39,200 +39,200 @@ import MobileNav from './MobileNav';
 import { Link } from 'react-router-dom';
 
 function App() {
-    const { isOpen: isLoginOpen, onOpen: openLogin, onClose: closeLogin } = useDisclosure();
-    const [showPassword, setShowPassword] = useState(false);
-    const [rememberPassword, setRememberPassword] = useState(false);
+  const { isOpen: isLoginOpen, onOpen: openLogin, onClose: closeLogin } = useDisclosure();
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
-    const openRegister = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+
+  const openRegister = () => {
+    closeLogin();
+    Registration.open();
+  };
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    // Simple client-side authentication using local storage
+    const storedEmail = localStorage.getItem('userEmail');
+    const storedPassword = localStorage.getItem('userPassword');
+
+    if (email === storedEmail && password === storedPassword) {
+      setLoggedIn(true);
+      setUserEmail(email);
       closeLogin();
-      RegistrationPopup.open();
-    };
-  
-    return (
-      <>
-        <Button onClick={openLogin}>Login</Button>
-        <Modal isOpen={isLoginOpen} onClose={closeLogin}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>
-              <ModalCloseButton />
-            </ModalHeader>
-            <ModalBody>
-              <form
-                id="login-form"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  alert('Logged in');
-                }}
-              >
-                <FormControl>
-                  <Box p={4}>
-                  <Stack align={'center'}>
-                        <Heading fontSize={'3xl'}>Log In</Heading>                       
-                    </Stack>
-                    <FormLabel>Email address</FormLabel>
-                    <Input type="email" />
-                  </Box>
-                    <Box p={4}>
-                    <FormLabel>Password</FormLabel>
-                    <InputGroup>
-                    <Input
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={(e) => setShowPassword(e.target.value)}
-                    />
-                    <InputRightElement>
-                        <IconButton
-                        icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-                        onClick={() => setShowPassword(!showPassword)}
-                        variant="ghost"
-                        />
-                    </InputRightElement>
-                    </InputGroup>
-                </Box>
-                <Box p={4}>
-                    <Checkbox
-                    isChecked={rememberPassword}
-                    onChange={(e) => setRememberPassword(e.target.checked)}
-                    >
-                    Remember Password
-                    </Checkbox>
-                </Box>
-                <Flex justifyContent="center">
-                <Box p={4} flex={1}>
-                <Button type="submit" form="login-form" colorScheme="blue" width="100%">
-                    Log In
-                </Button>
-                </Box>
-                </Flex>
-                  <Box p={4} textAlign="center">
-                    New Member?{' '}
-                    <Button as="a" color="blue.400" onClick={openRegister}>
-                      Click Here
-                    </Button>
-                  </Box>
-                </FormControl>
-              </form>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-  
-        {}
-        <RegistrationPopup />
-      </>
-    );
-  }
-  
-  function RegistrationPopup() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [showPassword, setShowPassword] = useState(false);
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-  
-      if (password !== confirmPassword) {
-        setPasswordError('Passwords do not match');
-        return;
-      }
-  
-      alert('Registered');
-      onClose();
-    };
-  
-    RegistrationPopup.open = () => {
-      onOpen();
-    };
-  
-    RegistrationPopup.close = () => {
-      onClose();
-    };
+    } else {
+      alert('Invalid email or password. Please try again.');
+    }
+  };
 
-    return (
-      <Modal isOpen={isOpen} onClose={onClose}>
+  const handleLogout = () => {
+    // Simple logout by clearing local storage
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userPassword');
+    setLoggedIn(false);
+  };
+
+  return (
+    <>
+      {loggedIn ? (
+        <>
+          <div>Welcome, {userEmail}!</div>
+          <Button onClick={handleLogout}>Logout</Button>
+        </>
+      ) : (
+        <Button onClick={openLogin}>Login</Button>
+      )}
+
+      <Modal isOpen={isLoginOpen} onClose={closeLogin}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
             <ModalCloseButton />
           </ModalHeader>
-  
           <ModalBody>
-            <form
-              id="register-form"
-              onSubmit={(event) => {
-                event.preventDefault();
-                alert('Registered');
-              }}
-            >
+            <form id="login-form" onSubmit={handleLogin}>
               <FormControl>
-              <Stack align={'center'}>
-                        <Heading fontSize={'3xl'}>Create Account</Heading>                       
-                </Stack>
                 <Box p={4}>
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
-                </Box>
-                <Box p={4}>
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
-                </Box>
-                <Box p={4}>
-                  <FormLabel>Phone Number</FormLabel>
-                  <Input type="phone" />
-                </Box>
-                <Box p={4}>
+                  <Stack align={'center'}>
+                    <Heading fontSize={'3xl'}>Log In</Heading>
+                  </Stack>
                   <FormLabel>Email address</FormLabel>
-                  <Input type="email" />
+                  <Input type="email" name="email" />
                 </Box>
                 <Box p={4}>
-                    <FormLabel>Password</FormLabel>
-                    <InputGroup>
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
                     <Input
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={(e) => setPassword(e.target.value)}
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      onChange={(e) => setShowPassword(e.target.value)}
                     />
                     <InputRightElement>
-                        <IconButton
+                      <IconButton
                         icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
                         onClick={() => setShowPassword(!showPassword)}
                         variant="ghost"
-                        />
+                      />
                     </InputRightElement>
-                    </InputGroup>
+                  </InputGroup>
                 </Box>
                 <Box p={4}>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <InputGroup>
-                    <Input
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    {passwordError && <Text color="red">{passwordError}</Text>}
-                    <InputRightElement>
-                        <IconButton
-                        icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-                        onClick={() => setShowPassword(!showPassword)}
-                        variant="ghost"
-                        />
-                    </InputRightElement>
-                    </InputGroup>
-                    {passwordError && <Text color="red">{passwordError}</Text>}
+                  <Checkbox
+                    isChecked={rememberPassword}
+                    onChange={(e) => setRememberPassword(e.target.checked)}
+                  >
+                    Remember Password
+                  </Checkbox>
                 </Box>
                 <Flex justifyContent="center">
-                <Box p={4} flex={1}>
-                <Button type="submit" form="login-form" colorScheme="blue" width="100%">
-                    Sign In
-                </Button>
-                </Box>
+                  <Box p={4} flex={1}>
+                    <Button type="submit" form="login-form" colorScheme="blue" width="100%">
+                      Log In
+                    </Button>
+                  </Box>
                 </Flex>
+                <Box p={4} textAlign="center">
+                  New Member?{' '}
+                  <span style={{ color: 'blue', cursor: 'pointer' }} onClick={openRegister}>
+                    Click Here
+                  </span>
+                </Box>
               </FormControl>
             </form>
           </ModalBody>
         </ModalContent>
       </Modal>
-    );
-  }
+      <Registration />
+    </>
+  );
+}
+
+function Registration() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Simple client-side authentication using local storage
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userPassword', password);
+
+    alert('Registered and logged in');
+    onClose();
+  };
+
+  Registration.open = () => {
+    onOpen();
+  };
+
+  Registration.close = () => {
+    onClose();
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody>
+          <form id="register-form" onSubmit={handleSubmit}>
+            <FormControl>
+              <Stack align={'center'}>
+                <Heading fontSize={'3xl'}>Create Account</Heading>
+              </Stack>
+              <Box p={4}>
+                <FormLabel for="firstname">First Name</FormLabel>
+                <Input value={firstname} onChange={(e) => setFirstName(e.target.value)} type="text" />
+              </Box>
+              <Box p={4}>
+                <FormLabel for="lastname">Last Name</FormLabel>
+                <Input value={lastname} onChange={(e) => setLastName(e.target.value)} type="text" />
+              </Box>
+              <Box p={4}>
+                <FormLabel for="email">Email address</FormLabel>
+                <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+              </Box>
+              <Box p={4}>
+                <FormLabel for="password">Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                      onClick={() => setShowPassword(!showPassword)}
+                      variant="ghost"
+                    />
+                  </InputRightElement>
+                </InputGroup>
+              </Box>
+              <Flex justifyContent="center">
+                <Box p={4} flex={1}>
+                  <Button type="submit" form="register-form" colorScheme="blue" width="100%">
+                    Sign In
+                  </Button>
+                </Box>
+              </Flex>
+            </FormControl>
+          </form>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+}
 
 
 export default function Header() {
