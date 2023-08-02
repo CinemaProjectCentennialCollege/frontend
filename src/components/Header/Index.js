@@ -28,8 +28,6 @@ import {
     InputRightElement,
     setShowPassword,
     
-
-    //   Link,
 } from '@chakra-ui/react';
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -56,7 +54,6 @@ function App() {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    // Simple client-side authentication using local storage
     const storedEmail = localStorage.getItem('userEmail');
     const storedPassword = localStorage.getItem('userPassword');
 
@@ -70,7 +67,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    // Simple logout by clearing local storage
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userPassword');
     setLoggedIn(false);
@@ -161,7 +157,6 @@ function Registration() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Simple client-side authentication using local storage
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userPassword', password);
 
