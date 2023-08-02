@@ -7,7 +7,7 @@ import {
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import Slider from 'react-slick';
 
-import MovieCard from '../../MovieCard/Index';
+import CastCard from '../../CastCard';
 
 
 export default function SliderView({ data }) {
@@ -54,13 +54,13 @@ export default function SliderView({ data }) {
             
             {/* Slider */}
             <Slider {...settings} ref={(slider) => setSlider(slider)}>
-                {data.map((movieData, index) => (
+                {data.map((actorData, index) => (
                     <Box key={index} 
                         paddingRight={5}
                         paddingBottom={5} 
                         height={sliderHeight}
                     >
-                        <MovieCard movie={movieData} />
+                        <CastCard actor={actorData} />
                     </Box>
                 ))}
             </Slider>

@@ -12,7 +12,7 @@ export default function Index({ popularMovies }) {
 			<Box mt={"10"}>
 				<MovieList 
 					layout={"slider"}
-					data={popularMovies.data} 
+					data={popularMovies && popularMovies.data} 
 				/>
 			</Box>
 

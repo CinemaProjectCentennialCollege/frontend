@@ -15,17 +15,12 @@ export default function Index() {
     const navigation = useNavigation();
     const { popularMovies } = useLoaderData();
     console.log("popularMovies: ", popularMovies)
-
-    if (navigation.state === "loading") {
-        return (
-            <PageActivityIndicator />
-        )
-    }
-
+    
     return (
-        
         <Box>
             <Header />
+
+            <PageActivityIndicator />
 
             <Box>
                 <MediaDiscovery />

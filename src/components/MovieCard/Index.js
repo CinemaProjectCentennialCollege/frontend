@@ -59,6 +59,7 @@ export default function Index(props) {
         >
             <Link to={`/movie/${movie.slug}`}>
                 <Badge 
+                    border={"1px solid darkgrey"}
                     rounded="full" position="absolute" 
                     bottom={"30%"} left={"40%"} px={3} py={1} fontSize="0.8em"
                     colorScheme={useColorModeValue('gray.200', 'gray.700')}
