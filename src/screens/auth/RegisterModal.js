@@ -1,4 +1,5 @@
 import {React, useState} from 'react';
+import { connect } from 'react-redux';
 import {
     Box,
     Flex,
@@ -28,23 +29,50 @@ import {
     InputRightElement,    
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import {
+    AttemptRegister,
+    mapStateToProps,
+    mapDispatchToProps
+} from './helper';
 
 
-export default function RegisterModal({ isOpen, onClose }) {  
-  const [email, setEmail] = useState('');
-  const [firstname, setFirstName] = useState('');
-  const [lastname, setLastName] = useState('');
+function RegisterModal(props) {  
+  const {
+        isOpen, 
+        onClose,
+        login: reduxLogin,
+        setRememberMe: reduxRememberMe,
+    } = props
+
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    localStorage.setItem('userEmail', email);
-    localStorage.setItem('userPassword', password);
+  const attemptRegister = async (event) => {
+        event.preventDefault();
+        const firstName = event.target.firstName.value;
+        const lastName = event.target.lastName.value;
+        const userName = event.target.userName.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        console.log("firstName: ", firstName)
+        console.log("password: ", password)
 
-    alert('Registered and logged in');
-    onClose();
-  };
+        if (firstName && lastName && userName && email && password) {
+            const payload = {
+              firstName: firstName, 
+              lastName: lastName, 
+              email: email, 
+              userName: userName, 
+              password: password 
+            }
+            let loggedInUser = await AttemptRegister({payload, reduxLogin})
+            if (loggedInUser) {
+                window.location.reload()
+            }
+        } else {
+            alert('Enter valid email or password.');
+            onClose()
+        }
+    };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -55,29 +83,34 @@ export default function RegisterModal({ isOpen, onClose }) {
         </ModalHeader>
 
         <ModalBody>
-          <form id="register-form" onSubmit={handleSubmit}>
+          <form id="register-form" onSubmit={attemptRegister}>
             <FormControl>
               <Stack align={'center'}>
                 <Heading fontSize={'3xl'}>Create Account</Heading>
               </Stack>
               <Box p={4}>
-                <FormLabel for="firstname">First Name</FormLabel>
-                <Input value={firstname} onChange={(e) => setFirstName(e.target.value)} type="text" />
+                <FormLabel for="firstName">First Name</FormLabel>
+                <Input name="firstName" type="text" />
               </Box>
               <Box p={4}>
-                <FormLabel for="lastname">Last Name</FormLabel>
-                <Input value={lastname} onChange={(e) => setLastName(e.target.value)} type="text" />
+                <FormLabel for="lastName">Last Name</FormLabel>
+                <Input name="lastName" type="text" />
               </Box>
               <Box p={4}>
                 <FormLabel for="email">Email address</FormLabel>
-                <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+                <Input name="email" type="text" />
+              </Box>
+              <Box p={4}>
+                <FormLabel for="userName">Username</FormLabel>
+                <Input name="userName" type="text" />
               </Box>
               <Box p={4}>
                 <FormLabel for="password">Password</FormLabel>
                 <InputGroup>
                   <Input
+                    name={"password"}
                     type={showPassword ? 'text' : 'password'}
-                    onChange={(e) => setPassword(e.target.value)}
+                    // onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement>
                     <IconButton
@@ -91,7 +124,7 @@ export default function RegisterModal({ isOpen, onClose }) {
               <Flex justifyContent="center">
                 <Box p={4} flex={1}>
                   <Button type="submit" form="register-form" colorScheme="blue" width="100%">
-                    Sign In
+                    Register
                   </Button>
                 </Box>
               </Flex>
@@ -102,3 +135,5 @@ export default function RegisterModal({ isOpen, onClose }) {
     </Modal>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps) (RegisterModal)
