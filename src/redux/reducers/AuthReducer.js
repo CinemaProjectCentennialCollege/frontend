@@ -2,10 +2,7 @@ import { AuthActionTypes } from '../actions/AuthActions'
 
 const INITIAL_STATE = {
     loggedIn: false,
-    
     accessToken: null,
-    // sessionToken: '',
-
     rememberMe: null,
     user: null,
     cart: null
@@ -25,11 +22,8 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
         case AuthActionTypes.SET_ACCESS_TOKEN:
             return { ...state, accessToken: action.payload }
 
-        // case AuthActionTypes.SET_SESSION_TOKEN:
-        //     return { ...state, sessionToken: action.payload }
-
-        case AuthActionTypes.SET_CART:
-            return { ...state, cart: action.payload }
+        case AuthActionTypes.SET_REMEMBER_ME:
+            return { ...state, rememberMe: action.payload }
 
         case AuthActionTypes.LOGIN:
             console.log("action.payload: ", action.payload)
@@ -37,7 +31,6 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loggedIn: true,
                 user: action.payload.user,
-                cart: action.payload.cart,
                 accessToken: action.payload.token
             }
 

@@ -1,31 +1,23 @@
 export const AuthActionTypes = {
     REGISTER: "REGISTER",
     LOGIN: "LOGIN",
-    SET_CART: "SET_CART",
     SET_FIRST_TIME_USER: "SET_FIRST_TIME_USER",
     UPDATE_USER: "UPDATE_USER",
     LOGOUT: "LOGOUT",
     SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
-    // SET_SESSION_TOKEN: "SET_SESSION_TOKEN",
+    SET_REMEMBER_ME: "SET_REMEMBER_ME",
+}
+
+export const setRememberMe = (payload) => {
+    return {
+        type: AuthActionTypes.SET_REMEMBER_ME,
+        payload
+    }
 }
 
 export const setAccessToken = (payload) => {
     return {
         type: AuthActionTypes.SET_ACCESS_TOKEN,
-        payload
-    }
-}
-
-// export const setSessionToken = (payload) => {
-//     return {
-//         type: AuthActionTypes.SET_SESSION_TOKEN,
-//         payload
-//     }
-// }
-
-export const setCart = (payload) => {
-    return {
-        type: AuthActionTypes.SET_CART,
         payload
     }
 }

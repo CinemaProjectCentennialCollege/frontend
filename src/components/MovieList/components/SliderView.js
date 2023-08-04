@@ -21,7 +21,8 @@ export default function SliderView({ data }) {
 
     // Settings for the slider
     const settings = {
-        dots: useBreakpointValue({ base: false, md: true }),
+        // dots: useBreakpointValue({ base: false, md: true }),
+        dots: false,
         adaptiveHeight: true,
         infinite: true,
         autoplay: true,

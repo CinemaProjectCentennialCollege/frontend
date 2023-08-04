@@ -9,9 +9,9 @@ export default function GridView({ data }) {
     return (
         <SimpleGrid columns={[2, 2, 3, 4]} spacing={["5", "8", "12", "16"]} mt={50}>
             {
-                data.map(actorData => {
+                data.map(castData => {
                     return (
-                        <CastCard actor={actorData} />
+                        <CastCard cast={castData} />
                     )
                 })
             }

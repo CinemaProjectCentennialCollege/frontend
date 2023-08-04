@@ -8,7 +8,9 @@ export default function PageActivityIndicator() {
 
     if (navigation.state === "loading") {
         return (
-            <Center h={"100vh"} 
+            <Center 
+                h={"100%"}
+                minH={"100vh"} 
                 zIndex={1}
                 background={"rgba(255,255,255,0.8)"}
                 bgSize={"cover"}

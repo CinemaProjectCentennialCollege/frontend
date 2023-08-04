@@ -20,6 +20,8 @@ import CategoryLoader from "./category/loader";
 import MovieLoader from "./movie/loader";
 import ActorLoader from "./actor/loader";
 
+import PageActivityIndicator from '../components/loader/PageActivityIndicator';
+
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -57,5 +59,9 @@ export default function Router() {
         },
     ])
 
-    return <RouterProvider router={router} />
+    return (
+        <RouterProvider 
+            router={router} 
+            fallbackElement={<PageActivityIndicator />}
+        />)
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from "react-router-dom";
 import { Box, Container, Heading, Text } from '@chakra-ui/react';
 import Header from '../components/Header/Index';
 import Footer from '../components/Footer/Index';
@@ -8,17 +7,12 @@ import PageActivityIndicator from '../components/loader/PageActivityIndicator';
 
 
 export default function AboutUs() {
-    const navigation = useNavigation();
-
-    if (navigation.state === "loading") {
-        return (
-            <PageActivityIndicator />
-        )
-    }
-
+    
     return (
         <Box>
             <Header />
+
+            <PageActivityIndicator />
 
             <PageHeading 
                 title={"About Us"}

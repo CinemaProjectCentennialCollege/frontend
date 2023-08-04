@@ -21,7 +21,8 @@ export default function SliderView({ data }) {
 
     // Settings for the slider
     const settings = {
-        dots: useBreakpointValue({ base: false, md: true }),
+        // dots: useBreakpointValue({ base: false, md: true }),
+        dots: false,
         adaptiveHeight: true,
         infinite: true,
         autoplay: true,
@@ -54,13 +55,13 @@ export default function SliderView({ data }) {
             
             {/* Slider */}
             <Slider {...settings} ref={(slider) => setSlider(slider)}>
-                {data.map((actorData, index) => (
+                {data.map((castData, index) => (
                     <Box key={index} 
                         paddingRight={5}
                         paddingBottom={5} 
                         height={sliderHeight}
                     >
-                        <CastCard actor={actorData} />
+                        <CastCard cast={castData} />
                     </Box>
                 ))}
             </Slider>

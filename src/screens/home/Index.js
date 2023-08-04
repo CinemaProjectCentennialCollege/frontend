@@ -17,7 +17,7 @@ export default function Index() {
     console.log("popularMovies: ", popularMovies)
     
     return (
-        <Box>
+        <Box pos={"relative"}>
             <Header />
 
             <PageActivityIndicator />
@@ -27,7 +27,7 @@ export default function Index() {
 
                 <PopularMoviesSection popularMovies={popularMovies} />
 
-                <SliderSection />
+                {/* <SliderSection /> */}
             </Box>
 
             <Footer />

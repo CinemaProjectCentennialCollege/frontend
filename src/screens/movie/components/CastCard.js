@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 export default function CastCard(props) {
     const {
-        actor
+        cast
     } = props
 
     return (
@@ -26,7 +26,7 @@ export default function CastCard(props) {
             shadow="lg"
             position="relative"
         >
-            {/* <Link to={`/movie/${actor.slug}`}>
+            {/* <Link to={`/movie/${cast.actor.slug}`}>
                 <Badge 
                     border={"1px solid darkgrey"}
                     rounded="full" position="absolute" 
@@ -40,8 +40,8 @@ export default function CastCard(props) {
 
             <VStack height={"100%"}>
                 <Image 
-                    src={`https://www.dvdplanetstore.pk/wp-content/uploads/2017/12${actor.poster_path}`} 
-                    alt={`Picture of ${actor.title}`} 
+                    src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${cast.actor.image}`} 
+                    alt={`Picture of ${cast.actor.name}`} 
                     roundedTop="lg" 
                     width={"100%"}
                     bg={"lightgray"}
@@ -56,15 +56,12 @@ export default function CastCard(props) {
                     justifyContent={"space-around"}
                     paddingY={"2"}
                 >
-                    <Link to={`/movie/${actor.slug}`} width={"90%"}>
+                    <Link to={`/movie/${cast.actor.slug}`} width={"90%"}>
                         <Text noOfLines={1} align={"center"}>
-                            {actor.name}
+                            {cast.actor.name}
                         </Text>
+                        <Text>as {cast.character}</Text>
                     </Link>
-                    {/* <Rating 
-                        rating={actor.vote_average} 
-                        numReviews={actor.vote_count} 
-                    /> */}
                 </Flex>
             </VStack>
         </Box>

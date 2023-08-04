@@ -144,3 +144,35 @@ export const PostMan = async (
         })
     return responseObject
 }
+
+export function ValidateEmail(email) {
+    return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
+
+export function NumberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+export function NormalizePhoneNumber(value, previousValue, toDisplay) {
+    // console.log(value, previousValue, toDisplay)
+
+    if (!value) return value;
+    const currentValue = value.replace(/[^\d]/g, '');
+    const cvLength = currentValue.length;
+
+    // console.log('currentValue: ', currentValue)
+
+    if (toDisplay) {
+        if (!previousValue || value.length > previousValue.length) {
+            if (cvLength < 4) return currentValue;
+            if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`;
+            let normalizedOutput = `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`;
+            return [currentValue, normalizedOutput]
+        }
+    }
+    return [currentValue, null]
+};
