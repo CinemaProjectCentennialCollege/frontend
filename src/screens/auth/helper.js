@@ -6,7 +6,7 @@ export async function AttemptRegister({ payload, reduxLogin }) {
     console.log("payload:, ", payload)
     // Process request
     const responseObject = await PostMan(
-        `/register`, 
+        `/register`,
         'post',
         payload
     )
@@ -26,10 +26,10 @@ export async function AttemptRegister({ payload, reduxLogin }) {
 
 
 export async function AttemptLogin({ payload, reduxLogin }) {
-    console.log("payload:, ", payload)
+    //    console.log("payload:, ", payload)
     // Process request
     const responseObject = await PostMan(
-        `/login`, 
+        `/login`,
         'post',
         payload
     )
@@ -38,13 +38,12 @@ export async function AttemptLogin({ payload, reduxLogin }) {
         let authData = responseObject.data
         console.log("authData: ", authData)
         reduxLogin(authData)
-        return authData.user
     } else {
         // Set New State
         console.log("Error: ", Error)
         console.log("responseObject: ", responseObject)
-        return null
     }
+    return responseObject;
 }
 
 
