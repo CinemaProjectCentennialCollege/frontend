@@ -7,6 +7,8 @@ import GridView from './components/GridView';
 
 export default function Index(props) {
     const { data, layout } = props
+    // console.log("data: ", data)
+
     if (data) {
         switch (layout) {
             case "slider":

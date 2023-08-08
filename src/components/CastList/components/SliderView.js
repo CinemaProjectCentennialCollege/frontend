@@ -17,7 +17,7 @@ export default function SliderView({ data }) {
     // buttons as the screen size changes
     const top = useBreakpointValue({ base: '90%', md: '50%' });
     const side = useBreakpointValue({ base: '30%', md: '-50px' });
-    const sliderHeight = useBreakpointValue({ base: 380, md: 500 })
+    const sliderHeight = useBreakpointValue({ base: 380, md: 420 })
 
     // Settings for the slider
     const settings = {

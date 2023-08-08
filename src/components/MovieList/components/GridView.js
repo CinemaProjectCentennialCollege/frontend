@@ -7,7 +7,7 @@ import MovieCard from '../../MovieCard/Index';
 export default function GridView({ data }) {
 
     return (
-        <SimpleGrid columns={[2, 2, 3, 4]} spacing={["5", "8", "12", "16"]} mt={50}>
+        <SimpleGrid columns={[2, 2, 3, 4]} spacing={["5", "8", "12", "16"]}>
             {
                 data.map(movieData => {
                     return (

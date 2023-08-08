@@ -7,6 +7,7 @@ import Footer from '../../components/Footer/Index';
 import PageHeading from '../../components/PageHeading/Index';
 import MovieList from '../../components/MovieList/Index';
 import PageActivityIndicator from '../../components/loader/PageActivityIndicator';
+import Breadcrumb from '../../components/Breadcrumb';
 
 
 export default function Index() {
@@ -28,6 +29,20 @@ export default function Index() {
             />
 
             <Container maxWidth={["2xl","2xl","3xl", "4xl", "6xl"]}>
+
+                <Breadcrumb
+                    activeCrumb={{
+                        title: category.name,
+                        path: "#"
+                    }}
+                    crumbs={[
+                        // {
+                        //     title: movie.title,
+                        //     path: "#"
+                        // }
+                    ]}
+                />
+
                 <MovieList data={category.data} />
             </Container>
 

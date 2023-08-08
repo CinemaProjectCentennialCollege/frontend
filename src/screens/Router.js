@@ -6,14 +6,10 @@ import {
 } from "react-router-dom";
 
 
-import LoginScreen from "./auth/Login";
-import RegisterScreen from "./auth/Register";
-
 import HomeScreen from "./home/Index";
 import AboutUsScreen from "./AboutUs";
 import CategoryScreen from "./category/Index";
 import MovieScreen from "./movie/Index";
-import ActorScreen from "./actor/Index";
 
 import HomeLoader from "./home/loader";
 import CategoryLoader from "./category/loader";
@@ -33,14 +29,6 @@ export default function Router() {
         {
             path: "about-us",
             element: <AboutUsScreen />,
-        },
-        {
-            path: "login",
-            element: <LoginScreen />,
-        },
-        {
-            path: "register",
-            element: <RegisterScreen />,
         },
         {
             path: "movie/:movieSlug",

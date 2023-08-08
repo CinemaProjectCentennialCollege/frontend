@@ -3,7 +3,7 @@
 # dcr.svc.obaa.cloud/cinerama-frontend:v0.1
 # ---
 # Docker image build command
-# docker build -f Dockerfile -t dcr.svc.obaa.cloud/cinerama-frontend:v0.1 .
+# docker build -f Dockerfile -t dcr.svc.obaa.cloud/cinerama-frontend:v0.2 .
 # ---
 version: '3.7'
 

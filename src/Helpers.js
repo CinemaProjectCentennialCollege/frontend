@@ -1,6 +1,16 @@
 import { store } from './redux/Store';
 import { logout } from './redux/actions/AuthActions';
 
+import { loadStripe } from '@stripe/stripe-js';
+
+
+export const GetStripe = () => {
+    let stripePromise;
+    if (!stripePromise) {
+        stripePromise = loadStripe(process.env.PUBLIC_STRIPE_KEY);
+    }
+    return stripePromise;
+};
 
 export const PostMan = async (
     uriPath,

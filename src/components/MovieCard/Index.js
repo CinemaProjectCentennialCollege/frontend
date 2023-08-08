@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { FetchMoviePoster } from './helper';
   
 
 export default function Index(props) {
@@ -77,6 +78,8 @@ export default function Index(props) {
                     width={"100%"}
                     bg={"lightgray"}
                     onError={(ev)=>{
+                        // let posterLink = FetchMoviePoster(movie)
+                        // ev.target.src = posterLink
                         ev.target.src = "https://c1.staticflickr.com/4/3896/14550191836_cc0675d906.jpg"
                     }}
                     flexGrow={1}
